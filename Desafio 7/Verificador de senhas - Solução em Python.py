@@ -27,8 +27,7 @@ def passwordCracker(passwords, loginAttempt):
 # Testes
 print(passwordCracker(["because", "can", "do", "must", "we", "what"], "wedowhatwemustbecausewecan"))  # Expected: "we do what we must because we can"
 print(passwordCracker(["hello", "planet"], "helloworld"))  # Expected: "WRONG PASSWORD"
-result = passwordCracker(["ab", "abcd", "cd"], "abcd")
-print(result)  # Expected: "ab cd" or "abcd"
+print(passwordCracker(["ab", "abcd", "cd"], "abcd")) # Expected: "ab cd" or "abcd"
 print(passwordCracker(["ozkxyhkcst", "xvglh", "hpdnb", "zfzahm"], "zfzahm"))  # Expected: "zfzahm"
 print(passwordCracker(["gurwgrb", "maqz", "holpkhqx", "aowypvopu"], "gurwgrb"))  # Expected: "gurwgrb"
 print(passwordCracker(["a", "aa", "aaa", "aaaa", "aaaaa", "aaaaaa", "aaaaaaa", "aaaaaaaa", "aaaaaaaaa", "aaaaaaaaaa"], "aaaaaaaaaab"))  # Expected: "WRONG PASSWORD"

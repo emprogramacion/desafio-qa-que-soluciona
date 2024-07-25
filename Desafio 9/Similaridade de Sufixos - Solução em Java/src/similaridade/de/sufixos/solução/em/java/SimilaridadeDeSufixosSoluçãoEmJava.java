@@ -11,56 +11,57 @@ package similaridade.de.sufixos.solução.em.java;
  */
 public class SimilaridadeDeSufixosSoluçãoEmJava {
 
-    // Método para calcular la similaridad entre un string y ses sufijos
     public static int similarity(String s) {
+        int n = s.length();
         int totalSimilarity = 0;
-        int length = s.length();
 
-        // Itera sobre cada caracter del string
-        for (int i = 0; i < length; i++) {
-            // Calcula la similaridad entre el string original e el sufijo que comienza en el índice i
-            int similarity = calculateSimilarity(s, i);
+        for (int i = 0; i < n; i++) {
+            String suffix = s.substring(i);
+            int similarity = calculateSimilarity(s, suffix);
             totalSimilarity += similarity;
         }
 
         return totalSimilarity;
     }
 
-    // Método auxiliar para calcular la similaridad entre el string y un sufijo comenzando en el índice 'start'
-    private static int calculateSimilarity(String s, int start) {
-        int similarity = 0;
-        int length = s.length();
+    private static int calculateSimilarity(String s, String suffix) {
+        int maxLength = Math.min(s.length(), suffix.length());
+        int similarityLength = 0;
 
-        // Compara caracteres del string original com el sufijo hasta encontrar uno diferente
-        for (int i = start, j = 0; i < length && j < length; i++, j++) {
-            if (s.charAt(i) == s.charAt(j)) {
-                similarity++;
+        for (int i = 0; i < maxLength; i++) {
+            if (s.charAt(i) == suffix.charAt(i)) {
+                similarityLength++;
             } else {
                 break;
             }
         }
 
-        return similarity;
+        return similarityLength;
     }
 
     public static void main(String[] args) {
-        String s1 = "ababaa";
-        System.out.println("Similaridad de 'ababaa': " + similarity(s1)); // Salida esperada: 11
+        // Teste 1
+        String test1 = "ababaa";
+        System.out.println("Teste 1: " + similarity(test1)); // Saída esperada: 11
 
-        String s2 = "aa";
-        System.out.println("Similaridad de 'aa': " + similarity(s2)); // Salida esperada: 3
+        // Teste 2
+        String test2 = "aa";
+        System.out.println("Teste 2: " + similarity(test2)); // Saída esperada: 3
 
-        String s3 = "abcabccba";
-        System.out.println("Similaridad de 'abcabccba': " + similarity(s3)); // Salida esperada: 13
+        // Teste 3
+        String test3 = "abcabccba";
+        System.out.println("Teste 3: " + similarity(test3)); // Saída esperada: 13
 
-        String s4 = "eabdcbbeeedbdaebdedbcbdcdeeaebbdbedbdbccbaaeababba";
-        System.out.println("Similaridad de 'eabdcbbeeedbdaebdedbcbdcdeeaebbdbedbdbccbaaeababba': " + similarity(s4)); // Salida esperada: 63
+        // Teste 4
+        String test4 = "eabdcbbeeedbdaebdedbcbdcdeeaebbdbedbdbccbaaeababba";
+        System.out.println("Teste 4: " + similarity(test4)); // Saída esperada: 63
 
-        String s5 = "bcdedeccaabdaebdddaeedabedccdddccbbaaadcbbabccbaadbbbeddecacddbababbabadcbbbacecdaee";
-        System.out.println("Similaridad de 'bcdedeccaabdaebdddaeedabedccdddccbbaaadcbbabccbaadbbbeddecacddbababbabadcbbbacecdaee': " + similarity(s5)); // Salida esperada: 105
+        // Teste 5
+        String test5 = "bcdedeccaabdaebdddaeedabedccdddccbbaaadcbbabccbaadbbbeddecacddbababbabadcbbbacecdaee";
+        System.out.println("Teste 5: " + similarity(test5)); // Saída esperada: 105
 
-        String s6 = "aeccbdaadbcebddbadbaedeceedbcdaaadcbdebecaddedebccdbadaeed";
-        System.out.println("Similaridad de 'aeccbdaadbcebddbadbaedeceedbcdaaadcbdebecaddedebccdbadaeed': " + similarity(s6)); // Salida esperada: 70
+        // Teste 6
+        String test6 = "aeccbdaadbcebddbadbaedeceedbcdaaadcbdebecaddedebccdbadaeed";
+        System.out.println("Teste 6: " + similarity(test6)); // Saída esperada: 70
     }
-
 }
