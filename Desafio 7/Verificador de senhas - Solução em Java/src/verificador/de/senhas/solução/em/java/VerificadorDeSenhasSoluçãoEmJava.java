@@ -15,43 +15,47 @@ import java.util.List;
 public class VerificadorDeSenhasSoluçãoEmJava {
 
     public static String passwordCracker(List<String> passwords, String loginAttempt) {
-        int n = loginAttempt.length();  // Longitud del intento de inicio de sesión
-        String[] dp = new String[n + 1];  // Array para almacenar la combinación de contraseñas usadas hasta cada posición
-        Arrays.fill(dp, null);
-        dp[0] = "";  // Inicializa la primera posición como cadena vacía, ya que no es necesario ninguna contraseña para formar una cadena vacía
+        int n = loginAttempt.length();
+        String[] dp = new String[n + 1];
+        for (int i = 0; i < dp.length; i++) {
+            dp[i] = null;
+        }
+        dp[0] = "";
 
-        for (int i = 1; i <= n; i++) {  // Itera sobre cada posición de la cadena de intento de inicio de sesión
-            for (String password : passwords) {  // Itera sobre cada contraseña en la lista de contraseñas
-                int length = password.length();  // Longitud de la contraseña actual
-                // Verifica si la posición actual es mayor o igual a la longitud de la contraseña,
-                // si la combinación hasta la posición anterior es válida
-                // y si la subcadena del intento de inicio de sesión corresponde a la contraseña actual
+        for (int i = 1; i <= n; i++) {
+            for (String password : passwords) {
+                int length = password.length();
                 if (i >= length && dp[i - length] != null && loginAttempt.substring(i - length, i).equals(password)) {
-                    if (dp[i - length].isEmpty()) {  // Si la combinación hasta la posición anterior es una cadena vacía
-                        dp[i] = password;  // Almacena la contraseña actual en dp[i]
+                    if (dp[i - length].isEmpty()) {
+                        dp[i] = password;
                     } else {
-                        dp[i] = dp[i - length] + " " + password;  // De lo contrario, concatena la contraseña actual a la combinación anterior con un espacio
+                        dp[i] = dp[i - length] + " " + password;
                     }
-                    break;  // Sale del bucle de contraseñas, ya que encontró una combinación válida para la posición actual
+                    break;
                 }
             }
         }
-
-        // Retorna la combinación de contraseñas usada para formar loginAttempt, o "WRONG PASSWORD" si no es posible formar la cadena
-        return dp[n] != null ? dp[n] : "WRONG PASSWORD";
+        if (dp[n] != null) {
+            return dp[n];
+        } else {
+            return "WRONG PASSWORD";
+        }
     }
 
     public static void main(String[] args) {
-        // Pruebas
-        System.out.println(passwordCracker(Arrays.asList("because", "can", "do", "must", "we", "what"), "wedowhatwemustbecausewecan"));  // Expected: "we do what we must because we can"
-        System.out.println(passwordCracker(Arrays.asList("hello", "planet"), "helloworld"));  // Expected: "WRONG PASSWORD"
-        System.out.println(passwordCracker(Arrays.asList("ab", "abcd", "cd"), "abcd")); //Expected: "ab cd" or "abcd"
-        System.out.println(passwordCracker(Arrays.asList("ozkxyhkcst", "xvglh", "hpdnb", "zfzahm"), "zfzahm"));  // Expected: "zfzahm"
-        System.out.println(passwordCracker(Arrays.asList("gurwgrb", "maqz", "holpkhqx", "aowypvopu"), "gurwgrb"));  // Expected: "gurwgrb"
-        System.out.println(passwordCracker(Arrays.asList("a", "aa", "aaa", "aaaa", "aaaaa", "aaaaaa", "aaaaaaa", "aaaaaaaa", "aaaaaaaaa", "aaaaaaaaaa"), "aaaaaaaaaab"));  // Expected: "WRONG PASSWORD"
-        System.out.println(passwordCracker(Arrays.asList("ejevas", "drdv", "mgxucpnh", "wqixbctfd", "kmmam", "kjquwvis", "liznldbnh", "pivoicfu", "espropqatm", "dbrasoqg"),
-                "cfuwqixbctfdliznldbnhkmmamlsprmpqatmljevaskmmamwqixbctfdpivoicauwgixbctfdmgxucpnhejevasdrdvpivoicfuliznldbnh"));  // Expected: "WRONG PASSWORD"
-        System.out.println(passwordCracker(Arrays.asList("okweif", "rpgnteja", "ufemijimuw", "vpon", "eoncaf", "udgf", "hhtez", "aiknzgy", "bpndljur", "eeycbwv"),
-                "ufemijimuweeycbwvokweifvponbpndljurudgfaiknzgyhhtezufemijimuwufemijimuwaiknzgyudgfufemijimuwrpgntejaeoncafvponudgfbpndljurokweifhhtezbpndljurvponufemijimuwudgfbpndljurufemijimuweoncafrpgntejaudgf"));  // Expected: "ufemijimuw eeycbwv okweif vpon bpndljur udgf aiknzgy hhtez ufemijimuw ufemijimuw aiknzgy udgf ufemijimuw rpgnteja eoncaf vpon udgf bpndljur okweif hhtez bpndljur vpon ufemijimuw udgf bpndljur ufemijimuw eoncaf rpgnteja udgf"
+        System.out.println(passwordCracker(Arrays.asList("because", "can", "do", "must", "we", "what"), "wedowhatwemustbecausewecan"));
+        System.out.println(passwordCracker(Arrays.asList("hello", "planet"), "helloworld"));
+        System.out.println(passwordCracker(Arrays.asList("ab", "abcd", "cd"), "abcd"));
+        System.out.println(passwordCracker(Arrays.asList("ozkxyhkcst", "xvglh", "hpdnb", "zfzahm"), "zfzahm"));
+        System.out.println(passwordCracker(Arrays.asList("gurwgrb", "maqz", "holpkhqx", "aowypvopu"), "gurwgrb"));
+        System.out.println(passwordCracker(Arrays.asList("a", "aa", "aaa", "aaaa", "aaaaa", "aaaaaa", "aaaaaaa", "aaaaaaaa", 
+                "aaaaaaaaa", "aaaaaaaaaa"), "aaaaaaaaaab"));
+        System.out.println(passwordCracker(Arrays.asList("ejevas", "drdv", "mgxucpnh", 
+                "wqixbctfd", "kmmam", "kjquwvis", "liznldbnh", "pivoicfu", "espropqatm", "dbrasoqg"),
+                "cfuwqixbctfdliznldbnhkmmamlsprmpqatmljevaskmmamwqixbctfdpivoicauwgixbctfdmgxucpnhejevasdrdvpivoicfuliznldbnh"));
+        System.out.println(passwordCracker(Arrays.asList("okweif", "rpgnteja", "ufemijimuw", "vpon", "eoncaf", "udgf", "hhtez",
+                "aiknzgy", "bpndljur", "eeycbwv"),"ufemijimuweeycbwvokweifvponbpndljurudgfaiknzgyhhtezufemijimuwufemijimuwai"
+                        + "knzgyudgfufemijimuwrpgntejaeoncafvponudgfbpndljurokweifhhtezbpndljurvponufemijimuwu"
+                        + "dgfbpndljurufemijimuweoncafrpgntejaudgf"));
     }
 }
