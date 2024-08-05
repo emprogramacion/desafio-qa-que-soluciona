@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/7b81d1b0-71f6-41a3-a144-8d23e554aa28)# Desafio 10: Dijkstra - Menor Distância em Grafos
+# Desafio 10: Dijkstra - Menor Distância em Grafos
 
 ## Desafio
 Dado um grafo não direcionado e um nó inicial, determine o comprimento dos caminhos mais curtos do nó inicial para todos os outros nós no grafo. Se um nó for inacessível, sua distância é -1. Os nós serão numerados consecutivamente de 1 a n, e as arestas terão distâncias variáveis.
